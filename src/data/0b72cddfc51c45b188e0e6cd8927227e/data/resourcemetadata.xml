@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:hsterms="https://www.hydroshare.org/terms/"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <hsterms:CompositeResource rdf:about="http://www.hydroshare.org/resource/0b72cddfc51c45b188e0e6cd8927227e">
+    <dc:subject>High Resolution Data</dc:subject>
+    <dc:subject>CIWS</dc:subject>
+    <hsterms:awardInfo>
+      <rdf:Description>
+        <hsterms:fundingAgencyName>National Science Foundation</hsterms:fundingAgencyName>
+        <hsterms:awardTitle>Cyberinfrastructure for Intelligent Water Supply (CIWS): Shrinking Big Data for Sustainable Urban Water</hsterms:awardTitle>
+        <hsterms:awardNumber>CBET 1552444</hsterms:awardNumber>
+        <hsterms:fundingAgencyURL rdf:resource="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1552444"/>
+      </rdf:Description>
+    </hsterms:awardInfo>
+    <dc:subject>Water Use</dc:subject>
+    <dc:identifier>
+      <rdf:Description>
+        <hsterms:hydroShareIdentifier rdf:resource="http://www.hydroshare.org/resource/0b72cddfc51c45b188e0e6cd8927227e"/>
+      </rdf:Description>
+    </dc:identifier>
+    <dc:type>
+      <rdf:Description rdf:about="http://www.hydroshare.org/terms/CompositeResource">
+        <rdfs:label>Composite Resource</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://www.hydroshare.org/terms/"/>
+      </rdf:Description>
+    </dc:type>
+    <dc:identifier>
+      <rdf:Description>
+        <hsterms:doi rdf:resource="https://doi.org/10.4211/hs.0b72cddfc51c45b188e0e6cd8927227e"/>
+      </rdf:Description>
+    </dc:identifier>
+    <dc:creator>
+      <rdf:Description>
+        <hsterms:homepage rdf:resource="http://www.linkedin.com/in/camilobastidas"/>
+        <hsterms:creatorOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hsterms:creatorOrder>
+        <hsterms:hydroshare_user_id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3619</hsterms:hydroshare_user_id>
+        <hsterms:description rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3619</hsterms:description>
+        <hsterms:organization>Utah State University</hsterms:organization>
+        <hsterms:email>camilo.bastidas@usu.edu</hsterms:email>
+        <hsterms:address>8200 Old Main Hill, Logan, UT 84322-8200</hsterms:address>
+        <hsterms:phone>435-754-5722</hsterms:phone>
+        <hsterms:name>Bastidas Pacheco, Camilo J.</hsterms:name>
+      </rdf:Description>
+    </dc:creator>
+    <dc:title>High Resolution Residential Water Use Data in Cache County, Utah, USA</dc:title>
+    <dc:coverage>
+      <dcterms:box>
+        <rdf:value>name=Logan and Providence Cities, Cache County, Utah, USA; projection=WGS 84 EPSG:4326; units=Decimal degrees; northlimit=41.7865; eastlimit=-111.7636; southlimit=41.6774; westlimit=-111.9112</rdf:value>
+      </dcterms:box>
+    </dc:coverage>
+    <dc:description>
+      <rdf:Description>
+        <dcterms:abstract>This resource contains high resolution residential water use data and classified end uses of water for 31 residential homes located in Logan City and Providence City in Cache County, Utah, USA. Data were collected using a low-cost, open source monitoring device that was designed to operate on magnetically driven residential water meters (see https://doi.org/10.3390/s20133655). Data were recorded with a temporal frequency of 4 seconds and were collected for a period of at least two weeks during the summer when outdoor water use was active and two weeks during the winter when no outdoor water use was expected. The event disaggregation and classification was conducted using the tools available in the HydroShare resource at https://doi.org/10.4211/hs.3143b3b1bdff48e0aaebcb4aedf02feb. The data were measured on the meter located on the water supply line to each home and represent a trace of the total water use for each residence. The dataset also includes secondary data about each of the residences at which data were collected. These data have been anonymized to remove any personally identifiable information from participants in this data collection effort.</dcterms:abstract>
+      </rdf:Description>
+    </dc:description>
+    <dc:date>
+      <dcterms:modified>
+        <rdf:value>2023-04-18T12:54:12.874442+00:00</rdf:value>
+      </dcterms:modified>
+    </dc:date>
+    <dc:creator>
+      <rdf:Description>
+        <hsterms:organization>Utah State University</hsterms:organization>
+        <hsterms:creatorOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</hsterms:creatorOrder>
+        <hsterms:phone></hsterms:phone>
+        <hsterms:name>Atallah, Nour</hsterms:name>
+        <hsterms:email>nour.atallah@aggiemail.usu.edu</hsterms:email>
+        <hsterms:address>8200 Old Main Hill, Logan, UT 84322-8200</hsterms:address>
+        <hsterms:hydroshare_user_id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">697</hsterms:hydroshare_user_id>
+        <hsterms:homepage></hsterms:homepage>
+        <hsterms:description rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">697</hsterms:description>
+      </rdf:Description>
+    </dc:creator>
+    <dc:rights>
+      <rdf:Description>
+        <hsterms:URL rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+        <hsterms:rightsStatement>This resource is shared under the Creative Commons Attribution CC BY.</hsterms:rightsStatement>
+      </rdf:Description>
+    </dc:rights>
+    <dc:date>
+      <dcterms:created>
+        <rdf:value>2020-10-27T21:04:29.329210+00:00</rdf:value>
+      </dcterms:created>
+    </dc:date>
+    <dc:relation>
+      <rdf:Description>
+        <dcterms:isReferencedBy>Bastidas Pacheco, C. J., Horsburgh, J. S., Tracy, R. J. (2020). A low-cost, open source monitoring system for collecting high-resolution water use data on magnetically-driven residential water meters, Sensors, 20(13), 3655, https://doi.org/10.3390/s20133655.</dcterms:isReferencedBy>
+      </rdf:Description>
+    </dc:relation>
+    <dc:language>eng</dc:language>
+    <dc:date>
+      <hsterms:published>
+        <rdf:value>2023-04-18T12:54:06.793485+00:00</rdf:value>
+      </hsterms:published>
+    </dc:date>
+    <dc:creator>
+      <rdf:Description>
+        <hsterms:description rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</hsterms:description>
+        <hsterms:name>Horsburgh, Jeffery S.</hsterms:name>
+        <hsterms:phone>(435) 797-2946</hsterms:phone>
+        <hsterms:organization>Utah State University</hsterms:organization>
+        <hsterms:homepage rdf:resource="http://jeffh.usu.edu"/>
+        <hsterms:hydroshare_user_id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</hsterms:hydroshare_user_id>
+        <hsterms:ResearchGateID rdf:resource="https://www.researchgate.net/profile/Jeffery_Horsburgh"/>
+        <hsterms:creatorOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</hsterms:creatorOrder>
+        <hsterms:GoogleScholarID rdf:resource="https://scholar.google.com/citations?user=mu4k534AAAAJ&amp;amp;hl=en"/>
+        <hsterms:address>8200 Old Main Hill, Logan, UT 84322-8200</hsterms:address>
+        <hsterms:email>jeff.horsburgh@usu.edu</hsterms:email>
+        <hsterms:ORCID rdf:resource="https://orcid.org/0000-0002-0768-3196"/>
+      </rdf:Description>
+    </dc:creator>
+    <dc:relation>
+      <rdf:Description>
+        <dcterms:references>Bastidas Pacheco, C. J., J. S. Horsburgh (2021). Supporting data and tools for "Variability in Consumption and End Uses of Water for Residential Users in Logan and Providence, Utah, USA", HydroShare, http://www.hydroshare.org/resource/379d9e7037f04478a99d5aec22e841e6</dcterms:references>
+      </rdf:Description>
+    </dc:relation>
+    <dc:publisher>
+      <rdf:Description>
+        <hsterms:publisherName>Consortium of Universities for the Advancement of Hydrologic Science, Inc. (CUAHSI)</hsterms:publisherName>
+        <hsterms:publisherURL rdf:resource="https://www.cuahsi.org"/>
+      </rdf:Description>
+    </dc:publisher>
+    <dcterms:bibliographicCitation>Bastidas Pacheco, C. J., N. Atallah, J. S. Horsburgh (2023). High Resolution Residential Water Use Data in Cache County, Utah, USA, HydroShare, https://doi.org/10.4211/hs.0b72cddfc51c45b188e0e6cd8927227e</dcterms:bibliographicCitation>
+    <dc:subject>Residential</dc:subject>
+    <dc:subject>Smart Meter</dc:subject>
+    <dc:relation>
+      <rdf:Description>
+        <dcterms:references>Attallah, N., C. J. Bastidas Pacheco (2023). Supporting data and tools for "An Open-source, Semi-supervised Water End Use Disaggregation and Classification Tool", HydroShare, https://doi.org/10.4211/hs.3143b3b1bdff48e0aaebcb4aedf02feb</dcterms:references>
+      </rdf:Description>
+    </dc:relation>
+  </hsterms:CompositeResource>
+</rdf:RDF>
