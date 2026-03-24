@@ -23,3 +23,6 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+
+src/data/0b72cddfc51c45b188e0e6cd8927227e/
+
