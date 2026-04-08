@@ -1,0 +1,7 @@
+{
+  "bathtub": 0,
+  "clotheswasher": 1,
+  "faucet": 2,
+  "shower": 3,
+  "toilet": 4
+}

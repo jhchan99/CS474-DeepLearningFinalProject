@@ -11,6 +11,7 @@ __pycache__/
 .vscode/
 
 runs/
+logs/
 reports/
 *.log
 
@@ -26,3 +27,6 @@ build/
 
 src/data/0b72cddfc51c45b188e0e6cd8927227e/
 *.pdf
+
+processed/water_events/*.csv
+processed/water_events/sequences/

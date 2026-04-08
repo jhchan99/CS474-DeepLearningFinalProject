@@ -4,10 +4,10 @@ overview: Refine the proposed data-prep workflow for sequence modeling on the Hy
 todos:
   - id: audit-label-source
     content: Confirm actual label vocabulary and counts in the chosen event files before setting exclusion rules.
-    status: pending
+    status: completed
   - id: validate-time-alignment
     content: Define and verify timezone handling and inclusive slice boundaries between event timestamps and QC traces.
-    status: pending
+    status: in_progress
   - id: design-site-split
     content: Create a reproducible site-level split and verify minority-class presence in validation and test sets.
     status: pending

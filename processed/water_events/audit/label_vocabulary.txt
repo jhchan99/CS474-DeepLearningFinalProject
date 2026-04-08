@@ -1,0 +1,8 @@
+bathtub
+clotheswasher
+faucet
+irrigation
+shower
+toilet
+unclassified
+unknown

@@ -1,0 +1,41 @@
+{
+  "seed": 42,
+  "train": [
+    2,
+    3,
+    5,
+    6,
+    7,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    17,
+    18,
+    21,
+    23,
+    24,
+    25,
+    26,
+    27,
+    29,
+    30,
+    31,
+    32
+  ],
+  "val": [
+    8,
+    9,
+    20,
+    28
+  ],
+  "test": [
+    4,
+    16,
+    19,
+    22
+  ],
+  "notes": "seed=42, val_n=4, test_n=4; train_sites=23, val_sites=4, test_sites=4; minority_in_val={'bathtub': np.True_, 'clotheswasher': np.True_}; minority_in_test={'bathtub': np.True_, 'clotheswasher': np.True_}"
+}
