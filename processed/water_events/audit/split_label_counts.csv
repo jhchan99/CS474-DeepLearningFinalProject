@@ -1,0 +1,6 @@
+split,label,count
+train,faucet,3817
+train,toilet,693
+train,shower,286
+train,clotheswasher,192
+train,bathtub,12

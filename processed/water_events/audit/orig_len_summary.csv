@@ -1,0 +1,7 @@
+group,count,min,p25,median,p75,max,zero_or_negative
+split=train,5000,1.0,1.0,3.0,11.0,363.0,0
+label=bathtub,12,32.0,73.0,82.5,,158.0,0
+label=clotheswasher,192,31.0,66.0,84.0,,168.0,0
+label=faucet,3817,1.0,1.0,2.0,,200.0,0
+label=shower,286,21.0,33.0,93.5,,363.0,0
+label=toilet,693,5.0,12.0,13.0,,29.0,0

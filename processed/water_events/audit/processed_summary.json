@@ -1,0 +1,75 @@
+{
+  "benchmark_total_rows": 849653,
+  "benchmark_unique_labels": 5,
+  "benchmark_label_distribution": [
+    {
+      "label": "faucet",
+      "count": 807749,
+      "pct": 95.0681
+    },
+    {
+      "label": "toilet",
+      "count": 32382,
+      "pct": 3.8112
+    },
+    {
+      "label": "shower",
+      "count": 6365,
+      "pct": 0.7491
+    },
+    {
+      "label": "clotheswasher",
+      "count": 2526,
+      "pct": 0.2973
+    },
+    {
+      "label": "bathtub",
+      "count": 631,
+      "pct": 0.0743
+    }
+  ],
+  "manifest_total_rows": 5000,
+  "manifest_vs_benchmark": {
+    "benchmark_rows": 849653,
+    "manifest_rows": 5000,
+    "manifest_to_benchmark_ratio": 0.005885,
+    "rows_only_in_benchmark": 844653,
+    "note": "If manifest_rows < benchmark_rows, sequences were likely built with --max-events or an incomplete run; re-run build_water_event_dataset without --max-events for full coverage."
+  },
+  "split_validation": {
+    "train_n_sites": 23,
+    "val_n_sites": 4,
+    "test_n_sites": 4,
+    "sites_disjoint": true,
+    "manifest_rows_wrong_split": 0,
+    "wrong_split_sample": [],
+    "minority_class_present": {
+      "train": {
+        "bathtub": true,
+        "clotheswasher": true
+      },
+      "val": {
+        "bathtub": false,
+        "clotheswasher": false
+      },
+      "test": {
+        "bathtub": false,
+        "clotheswasher": false
+      }
+    }
+  },
+  "label_encoding_validation": {
+    "label_idx_mismatch_count": 0,
+    "label_idx_mismatches_sample": [],
+    "labels_in_manifest_not_in_encoding": [],
+    "encoding_labels_not_in_manifest": []
+  },
+  "shard_resolution_sample": {
+    "sampled": 200,
+    "resolved_ok": 200,
+    "failed": 0,
+    "failures_sample": []
+  },
+  "shards_with_errors": 0,
+  "shards_missing_files": 0
+}

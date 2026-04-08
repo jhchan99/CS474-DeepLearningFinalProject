@@ -1,0 +1,2 @@
+shard,exists,arrays_present,n_events,flow_128_shape_ok,orig_len_positive,error
+train_shard_0000.npz,True,"event_id,flow_128,flow_orig,label,label_str,orig_len,site",10000,True,True,
