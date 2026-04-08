@@ -1,0 +1,32 @@
+Site,QCRecordWeeks_Paper,Occupants_Paper,IrrigableArea_m2_Paper,BuildingArea_m2_Paper,IrrigationMode_Paper,PulseResolution_L_per_pulse_Paper,AnnualAverageWaterUse_m3_Paper
+2,21.6,2,643.0,140.0,Sprinkler system,0.1257,397.9
+3,22.5,2,1408.0,138.0,Hose,0.0329,234.9
+4,9.3,4,1015.0,136.0,Sprinkler system,0.0329,647.7
+5,16.4,2,3118.0,169.0,Sprinkler system,0.1257,1786.0
+6,6.2,3,294.0,101.0,Hose,0.0329,96.2
+7,16.8,3,241.0,104.0,Hose,0.1257,55.2
+8,6.4,2,1789.0,160.0,Hose,0.1257,720.6
+9,9.3,2,509.0,173.0,Sprinkler system,0.1257,602.4
+10,6.2,2,824.0,102.0,Hose,0.1257,149.0
+11,12.4,4,827.0,136.0,Sprinkler system,0.1257,401.3
+12,9.9,2,1744.0,156.0,Sprinkler system,0.1257,181.2
+13,7.8,2,742.0,239.0,Sprinkler system,0.1257,1507.5
+14,10.4,2,2005.0,315.0,Sprinkler system,0.1257,1099.8
+15,9.0,6,405.0,171.0,Sprinkler system,0.1257,392.2
+16,7.4,3,1162.0,151.0,Hose,0.0329,247.4
+17,8.5,3,1451.0,92.0,Hose,0.0329,341.0
+18,8.7,1,410.0,74.0,Hose,0.0329,233.5
+19,23.1,5,982.0,128.0,Sprinkler system,0.1575,854.1
+20,5.2,4,1202.0,177.0,Sprinkler system,0.1575,942.2
+21,6.8,6,,,Sprinkler system,0.1575,
+22,8.0,7,,,Sprinkler system,0.1575,
+23,5.7,6,1108.0,144.0,Sprinkler system,0.1575,809.2
+24,8.1,8,1276.0,279.0,Sprinkler system,0.1575,1308.0
+25,7.4,6,914.0,282.0,Sprinkler system,0.1575,614.4
+26,6.7,6,3592.0,117.0,Sprinkler system,0.0962,644.0
+27,6.7,7,3842.0,299.0,Sprinkler system,0.0962,2248.6
+28,4.8,6,1846.0,337.0,Sprinkler system,0.1575,1747.6
+29,4.8,3,700.0,133.0,Sprinkler system,0.1575,573.3
+30,5.0,6,1250.0,137.0,Sprinkler system,0.1575,716.2
+31,4.6,3,827.0,154.0,Sprinkler system,0.1257,695.7
+32,4.6,2,862.0,104.0,Sprinkler system,0.0329,730.1

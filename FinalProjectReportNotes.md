@@ -127,6 +127,14 @@ We are planning a supervised deep learning project for residential water end-use
   - `3_QC_Data` contains raw `4 s` pulse measurements
   - event files contain labeled water-use events
   - site metadata includes `MeterResolution`, `MeterBrand`, `MeterSize`, and household characteristics
+- Added a supplemental site-reference mapping from the paper's Table 2 so each `SiteID` is tied to:
+  - QC record length in weeks
+  - occupants
+  - irrigable area and building area in `m^2`
+  - irrigation mode
+  - pulse resolution in `L/pulse`
+  - annual average water use in `m^3`
+- Keeping the paper table separate from `sites.csv` in the EDA outputs because some paper values do not exactly match HydroShare metadata for the same site.
 
 ### Literature / Context
 

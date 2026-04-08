@@ -1,0 +1,6 @@
+Dataset,Files,Rows,Sites
+sites_metadata,1,31,31
+log_files,31,264,31
+original_events,31,871353,31
+processed_events,31,871353,31
+raw_qc_data,31,43869547,31

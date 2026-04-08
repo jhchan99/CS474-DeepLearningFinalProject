@@ -1,0 +1,29 @@
+# Mamba/conda environment for DeepLearningFinalProject
+# Create/update:
+#   mamba env create -f environment.yml
+#   mamba env update -f environment.yml --prune
+#
+# GPU (CUDA): conda-forge builds may pick CPU PyTorch on some systems. If you need
+# NVIDIA GPU PyTorch, create the env then run (adjust cuda version to your node):
+#   mamba install -n dl-water pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
+# Or replace channels below with: pytorch, nvidia, conda-forge (see pytorch.org).
+
+name: dl-water
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pandas
+  - numpy
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - pytorch
+  - torchvision
+  - torchaudio
+  - torchmetrics
+  - pyyaml
+  - tqdm
+  - jupyter
+  - ipykernel
