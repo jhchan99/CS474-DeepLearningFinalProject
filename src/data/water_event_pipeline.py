@@ -380,6 +380,7 @@ def process_all_sequences(
     Writes NPZ shards (per split) and returns manifest dataframe with shard filenames.
     """
     ensure_dirs()
+    total_events = len(events_benchmark)
     site_to_split: dict[int, str] = {}
     for s in split_result.train:
         site_to_split[s] = "train"
@@ -413,18 +414,27 @@ def process_all_sequences(
             flow_orig=np.array(current["flow_orig"], dtype=object),
         )
         shard_counters[sp] = idx + 1
+        print(
+            f"[sequences] wrote {path.name} with {len(current['event_id']):,} events",
+            flush=True,
+        )
         for meta in current["meta"]:
             meta["shard"] = path.name
             manifest_rows.append(meta)
         current = None
 
     global_eid = 0
+    print(f"[sequences] starting sequence generation for {total_events:,} benchmark events", flush=True)
     for site_id in sorted(events_benchmark["Site"].unique()):
         if site_id not in site_to_split:
             continue
         split = site_to_split[site_id]
         sub_ev = events_benchmark[events_benchmark["Site"] == site_id].reset_index(drop=True)
         mr = resolution_map[site_id]
+        print(
+            f"[sequences] site {site_id} -> split={split}, events={len(sub_ev):,}",
+            flush=True,
+        )
 
         qc = (
             pd.read_csv(qc_path_for_site(site_id), parse_dates=["Time"])
@@ -484,10 +494,17 @@ def process_all_sequences(
             current["flow_orig"].append(flow_orig.astype(np.float32))
             current["meta"].append(meta)
 
+            if global_eid % 10_000 == 0:
+                print(
+                    f"[sequences] processed {global_eid:,}/{total_events:,} events",
+                    flush=True,
+                )
+
             if len(current["event_id"]) >= shard_size:
                 flush_current()
 
     flush_current()
+    print(f"[sequences] completed sequence generation: {global_eid:,} events", flush=True)
 
     manifest = pd.DataFrame(manifest_rows)
     shard_files = sorted(SEQUENCES_DIR.glob("*_shard_*.npz"))
@@ -496,12 +513,19 @@ def process_all_sequences(
 
 def build_full_pipeline(seed: int = 42, max_events: int | None = None) -> None:
     ensure_dirs()
+    print(f"[pipeline] starting build_full_pipeline seed={seed} max_events={max_events}", flush=True)
 
     # 1) Load + audit
     events = load_all_events_concat()
+    print(f"[pipeline] loaded {len(events):,} raw labeled events", flush=True)
     write_label_audit(events)
 
     cleaned, benchmark, irrigation_only = apply_label_policy(events)
+    print(
+        "[pipeline] label policy results: "
+        f"cleaned={len(cleaned):,}, benchmark={len(benchmark):,}, irrigation_only={len(irrigation_only):,}",
+        flush=True,
+    )
     cleaned.to_csv(PROCESSED_WATER_ROOT / "events_clean.csv", index=False)
     benchmark.to_csv(PROCESSED_WATER_ROOT / "events_benchmark.csv", index=False)
     irrigation_only.to_csv(PROCESSED_WATER_ROOT / "events_irrigation_only.csv", index=False)
@@ -512,6 +536,7 @@ def build_full_pipeline(seed: int = 42, max_events: int | None = None) -> None:
         if max_events is not None and max_events > 0
         else benchmark
     )
+    print(f"[pipeline] benchmark events to process this run: {len(benchmark_run):,}", flush=True)
     (PROCESSED_WATER_ROOT / "label_encoding_benchmark.json").write_text(
         json.dumps(label_map, indent=2), encoding="utf-8"
     )
@@ -533,6 +558,11 @@ def build_full_pipeline(seed: int = 42, max_events: int | None = None) -> None:
     sites_df = load_sites_metadata()
     all_sites = sorted(sites_df["SiteID"].tolist())
     split_result = site_split_coverage(all_sites, cleaned, val_n=4, test_n=4, seed=seed)
+    print(
+        "[pipeline] site split sizes: "
+        f"train={len(split_result.train)}, val={len(split_result.val)}, test={len(split_result.test)}",
+        flush=True,
+    )
     split_payload = {
         "seed": seed,
         "train": split_result.train,
@@ -564,6 +594,8 @@ def build_full_pipeline(seed: int = 42, max_events: int | None = None) -> None:
         benchmark_run, split_result, res_map, label_to_idx=label_map
     )
     manifest.to_csv(PROCESSED_WATER_ROOT / "events_manifest.csv", index=False)
+    print(f"[pipeline] wrote manifest with {len(manifest):,} rows", flush=True)
+    print("[pipeline] build_full_pipeline completed", flush=True)
 
 
 if __name__ == "__main__":

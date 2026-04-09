@@ -1,0 +1,38 @@
+# GRU baseline — cross-site generalization
+run_name: gru_baseline
+model: gru
+
+# paths (relative to project root)
+manifest_path: processed/water_events/events_manifest.csv
+sequences_dir: processed/water_events/sequences
+label_map_path: processed/water_events/label_encoding_benchmark.json
+checkpoint_dir: runs/gru_baseline/checkpoints
+log_dir: runs/gru_baseline/logs
+
+# data
+batch_size: 256
+num_workers: 4
+pin_memory: true
+use_weighted_sampler: false
+
+# loss
+use_class_weights: true
+
+# optimizer
+lr: 0.001
+weight_decay: 0.0001
+scheduler: cosine
+cosine_t_max: 50
+
+# training
+epochs: 50
+early_stop_patience: 10
+seed: 42
+log_every_n_steps: 50
+save_best_only: true
+
+# GRU architecture
+gru_hidden: 128
+gru_layers: 2
+gru_dropout: 0.3
+gru_bidirectional: false

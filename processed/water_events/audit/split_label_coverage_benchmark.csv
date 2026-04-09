@@ -1,0 +1,16 @@
+split,label,event_count
+train,bathtub,332
+train,clotheswasher,1797
+train,faucet,627439
+train,toilet,22545
+train,shower,4621
+val,bathtub,36
+val,clotheswasher,377
+val,faucet,148967
+val,toilet,3514
+val,shower,344
+test,bathtub,263
+test,clotheswasher,352
+test,faucet,31343
+test,toilet,6323
+test,shower,1400
