@@ -33,12 +33,10 @@
 
 set -euo pipefail
 
-# ── Resolve project root (this file lives in scripts/slurm/) ─────────────────
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+ROOT="/home/jamcha99/DeepLearningFinalProject"
 cd "${ROOT}"
 
-mkdir -p logs
+mkdir -p "${ROOT}/logs"
 
 # ── Config ───────────────────────────────────────────────────────────────────
 # Default: gru_baseline. Override by exporting CONFIG before sbatch.
@@ -56,13 +54,14 @@ eval "$(conda shell.bash hook)"
 conda activate dl-water
 
 # ── GPU check ────────────────────────────────────────────────────────────────
+echo "=== Starting training: CONFIG=${CONFIG} ==="
+echo "Job: ${SLURM_JOB_ID:-unknown}  Node: ${SLURMD_NODENAME:-unknown}  Started: $(date -Is)"
+echo "Working directory: ${ROOT}"
+echo "Python: $(which python)"
 python -c "import torch; print('CUDA available:', torch.cuda.is_available()); \
            [print(f'  GPU {i}:', torch.cuda.get_device_name(i)) for i in range(torch.cuda.device_count())]"
 
 # ── Train ─────────────────────────────────────────────────────────────────────
-echo "=== Starting training: CONFIG=${CONFIG} ==="
-echo "Job: ${SLURM_JOB_ID}  Node: ${SLURMD_NODENAME:-localhost}  Started: $(date -Is)"
-
-python -m src.train --config "${CONFIG}" ${EXTRA_ARGS:-}
+python -u -m src.train --config "${CONFIG}" ${EXTRA_ARGS:-}
 
 echo "=== Training complete: $(date -Is) ==="

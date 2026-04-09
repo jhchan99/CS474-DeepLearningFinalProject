@@ -36,6 +36,28 @@ def _build_model(cfg: TrainConfig, num_classes: int) -> torch.nn.Module:
         raise ValueError(f"Unknown model: {cfg.model!r}")
 
 
+def _resolve_device(requested: str | None) -> torch.device:
+    """
+    Choose a device that is actually usable for inference.
+
+    On shared login nodes ``torch.cuda.is_available()`` may return True while CUDA
+    allocations still fail because no GPU is allocated. In that case fall back to CPU.
+    """
+    if requested is not None:
+        return torch.device(requested)
+
+    if not torch.cuda.is_available():
+        return torch.device("cpu")
+
+    try:
+        # Probe that CUDA is really usable, not just visible.
+        torch.empty(1, device="cuda")
+        return torch.device("cuda")
+    except RuntimeError as exc:
+        print(f"[evaluate] CUDA visible but unusable ({exc}); falling back to CPU")
+        return torch.device("cpu")
+
+
 @torch.no_grad()
 def evaluate_split(
     model: torch.nn.Module,
@@ -65,14 +87,15 @@ def main() -> None:
     project_root = Path(args.project_root) if args.project_root else Path(__file__).resolve().parents[1]
     cfg = cfg.resolved_paths(project_root)
 
-    device = torch.device(args.device) if args.device else torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = _resolve_device(args.device)
 
     label_map = load_label_map(Path(cfg.label_map_path))
     label_names = [k for k, _ in sorted(label_map.items(), key=lambda x: x[1])]
     n_classes = len(label_names)
 
     model = _build_model(cfg, n_classes)
-    ckpt = torch.load(args.checkpoint, map_location=device)
+    # Always deserialize on CPU first so evaluation works on login nodes too.
+    ckpt = torch.load(args.checkpoint, map_location="cpu")
     state = ckpt["model_state_dict"] if isinstance(ckpt, dict) and "model_state_dict" in ckpt else ckpt
     model.load_state_dict(state)
     model.to(device)
@@ -80,7 +103,7 @@ def main() -> None:
     ds = WaterEventDataset(args.split, Path(cfg.manifest_path), Path(cfg.sequences_dir))
     loader = DataLoader(ds, batch_size=cfg.batch_size, shuffle=False, num_workers=cfg.num_workers)
 
-    print(f"Evaluating {args.split} split ({len(ds):,} events)…")
+    print(f"Evaluating {args.split} split ({len(ds):,} events) on {device}...")
     y_true, y_pred = evaluate_split(model, loader, device)
 
     out_dir = Path(cfg.log_dir)

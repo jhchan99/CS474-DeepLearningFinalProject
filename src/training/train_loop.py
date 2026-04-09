@@ -21,11 +21,27 @@ import torch.nn as nn
 from torch.optim import AdamW
 from torch.optim.lr_scheduler import CosineAnnealingLR, ReduceLROnPlateau
 from torch.utils.data import DataLoader
-from torch.utils.tensorboard import SummaryWriter
+try:
+    from torch.utils.tensorboard import SummaryWriter
+except ModuleNotFoundError:
+    SummaryWriter = None
 
 from src.data.sequence_dataset import WaterEventDataset, class_weights
 from src.evaluation.metrics import macro_f1, save_eval_results
 from src.training.config import TrainConfig
+
+
+class _NoOpSummaryWriter:
+    """Fallback writer used when tensorboard is not installed."""
+
+    def add_scalar(self, *args: Any, **kwargs: Any) -> None:
+        return None
+
+    def add_scalars(self, *args: Any, **kwargs: Any) -> None:
+        return None
+
+    def close(self) -> None:
+        return None
 
 
 class EarlyStopping:
@@ -138,7 +154,11 @@ def train(
     ckpt_dir.mkdir(parents=True, exist_ok=True)
     log_dir.mkdir(parents=True, exist_ok=True)
 
-    writer = SummaryWriter(log_dir=str(log_dir))
+    if SummaryWriter is None:
+        print("[train] tensorboard is not installed; continuing without TensorBoard logging")
+        writer = _NoOpSummaryWriter()
+    else:
+        writer = SummaryWriter(log_dir=str(log_dir))
 
     # Loss
     if cfg.use_class_weights:
