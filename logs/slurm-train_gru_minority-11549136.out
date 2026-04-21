@@ -1,0 +1,44 @@
+=== Starting training: CONFIG=configs/train_gru_minority.yaml ===
+Job: 11549136  Node: m9g-1-5  Started: 2026-04-21T08:56:44-06:00
+Working directory: /home/jamcha99/DeepLearningFinalProject
+Python: /home/jamcha99/groups/grp_oitcapstone_cs/.cache/envs/dl-water/bin/python
+CUDA available: True
+  GPU 0: Tesla P100-PCIE-16GB
+Run: gru_minority  Model: gru  Classes: 5  Device: auto
+Train size: 656,734  Val size: 153,238
+[train] augment=True (noise_std=0.03, amp=[0.7,1.3], time_warp=0.1)
+Model parameters: 430,597
+[train] tensorboard is not installed; continuing without TensorBoard logging
+[train] loss: focal (gamma=2.0, class_weights=True)
+Epoch 001/60  loss 21.9762/0.6459  F1 0.3723/0.2853  (67.8s)
+Epoch 002/60  loss 15.9551/0.6213  F1 0.6162/0.3063  (65.3s)
+Epoch 003/60  loss 12.5279/0.6404  F1 0.6863/0.3264  (65.4s)
+Epoch 004/60  loss 9.7851/0.6923  F1 0.7316/0.3839  (66.6s)
+Epoch 005/60  loss 7.7324/0.7190  F1 0.7664/0.3935  (65.6s)
+Epoch 006/60  loss 6.1960/0.8195  F1 0.7900/0.3702  (65.6s)
+Epoch 007/60  loss 5.3411/0.9648  F1 0.8094/0.3989  (65.5s)
+Epoch 008/60  loss 4.6663/0.9723  F1 0.8239/0.4160  (65.7s)
+Epoch 009/60  loss 4.1516/1.0141  F1 0.8349/0.3866  (65.8s)
+Epoch 010/60  loss 3.6545/1.1421  F1 0.8486/0.3714  (66.7s)
+Epoch 011/60  loss 3.3813/1.4494  F1 0.8584/0.3851  (66.0s)
+Epoch 012/60  loss 2.9703/1.3090  F1 0.8669/0.3907  (65.8s)
+Epoch 013/60  loss 2.7690/1.3936  F1 0.8743/0.3776  (65.6s)
+Epoch 014/60  loss 2.5698/1.4382  F1 0.8804/0.3713  (65.9s)
+Epoch 015/60  loss 2.4371/1.4047  F1 0.8846/0.3717  (65.8s)
+Epoch 016/60  loss 2.2787/1.5536  F1 0.8899/0.3698  (65.9s)
+Epoch 017/60  loss 2.1241/1.6015  F1 0.8946/0.3747  (65.8s)
+Epoch 018/60  loss 2.0829/1.5634  F1 0.8969/0.3586  (65.8s)
+Epoch 019/60  loss 1.9338/1.5804  F1 0.9008/0.3639  (67.1s)
+Epoch 020/60  loss 1.8579/1.6868  F1 0.9040/0.3767  (66.3s)
+Epoch 021/60  loss 1.7904/1.6598  F1 0.9068/0.3301  (66.0s)
+Epoch 022/60  loss 1.6974/1.7146  F1 0.9091/0.3609  (67.1s)
+Epoch 023/60  loss 1.6327/1.5675  F1 0.9110/0.3654  (67.3s)
+Epoch 024/60  loss 1.5929/1.7996  F1 0.9146/0.3367  (66.3s)
+Epoch 025/60  loss 1.5688/1.6889  F1 0.9161/0.3538  (65.6s)
+Epoch 026/60  loss 1.5139/1.7187  F1 0.9186/0.3328  (65.6s)
+Epoch 027/60  loss 1.4519/1.8800  F1 0.9205/0.3298  (65.9s)
+Epoch 028/60  loss 1.3706/2.0271  F1 0.9214/0.3290  (65.4s)
+Early stopping at epoch 28 (no improvement for 20 epochs).
+Best val macro-F1: 0.4160 at epoch 8
+Summary saved to /home/jamcha99/DeepLearningFinalProject/runs/gru_minority/logs/train_summary.json
+=== Training complete: 2026-04-21T09:28:30-06:00 ===

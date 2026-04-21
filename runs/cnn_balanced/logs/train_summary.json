@@ -1,0 +1,7 @@
+{
+  "run_name": "cnn_balanced",
+  "model": "cnn",
+  "best_val_f1": 0.7030865305447405,
+  "best_epoch": 24,
+  "n_params": 60613
+}

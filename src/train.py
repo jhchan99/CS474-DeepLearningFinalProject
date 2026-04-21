@@ -22,8 +22,12 @@ from src.data.sequence_dataset import WaterEventDataset, load_label_map
 from src.models.cnn_bilstm import build_cnn_bilstm
 from src.models.cnn_classifier import build_cnn
 from src.models.gru_classifier import build_gru
+from src.models.multiscale_cnn import build_multiscale_cnn
 from src.training.config import TrainConfig
 from src.training.train_loop import train
+
+
+MODELS_SUPPORTING_METADATA = {"cnn", "multiscale_cnn"}
 
 
 def _set_seed(seed: int) -> None:
@@ -33,15 +37,20 @@ def _set_seed(seed: int) -> None:
     torch.cuda.manual_seed_all(seed)
 
 
-def _build_model(cfg: TrainConfig, num_classes: int) -> torch.nn.Module:
+def _build_model(cfg: TrainConfig, num_classes: int, metadata_dim: int = 0) -> torch.nn.Module:
     if cfg.model == "gru":
         return build_gru(num_classes, cfg)
     elif cfg.model == "cnn":
-        return build_cnn(num_classes, cfg)
+        return build_cnn(num_classes, cfg, metadata_dim=metadata_dim)
     elif cfg.model == "cnn_bilstm":
         return build_cnn_bilstm(num_classes, cfg)
+    elif cfg.model == "multiscale_cnn":
+        return build_multiscale_cnn(num_classes, cfg, metadata_dim=metadata_dim)
     else:
-        raise ValueError(f"Unknown model: {cfg.model!r}. Choose from: gru, cnn, cnn_bilstm")
+        raise ValueError(
+            f"Unknown model: {cfg.model!r}. "
+            "Choose from: gru, cnn, cnn_bilstm, multiscale_cnn"
+        )
 
 
 def main() -> None:
@@ -66,12 +75,41 @@ def main() -> None:
 
     print(f"Run: {cfg.run_name}  Model: {cfg.model}  Classes: {n_classes}  Device: {device or 'auto'}")
 
-    train_ds = WaterEventDataset("train", Path(cfg.manifest_path), Path(cfg.sequences_dir))
-    val_ds = WaterEventDataset("val", Path(cfg.manifest_path), Path(cfg.sequences_dir))
+    use_meta = bool(cfg.use_metadata_head) and cfg.model in MODELS_SUPPORTING_METADATA
+    if cfg.use_metadata_head and cfg.model not in MODELS_SUPPORTING_METADATA:
+        print(
+            f"[train] use_metadata_head=True but model {cfg.model!r} does not support a "
+            "metadata head; ignoring."
+        )
+
+    train_ds = WaterEventDataset(
+        "train",
+        Path(cfg.manifest_path),
+        Path(cfg.sequences_dir),
+        augment=cfg.augment,
+        aug_noise_std=cfg.aug_noise_std,
+        aug_amp_min=cfg.aug_amp_min,
+        aug_amp_max=cfg.aug_amp_max,
+        aug_time_warp=cfg.aug_time_warp,
+        return_metadata=use_meta,
+    )
+    val_ds = WaterEventDataset(
+        "val",
+        Path(cfg.manifest_path),
+        Path(cfg.sequences_dir),
+        return_metadata=use_meta,
+    )
 
     print(f"Train size: {len(train_ds):,}  Val size: {len(val_ds):,}")
+    if cfg.augment:
+        print(
+            f"[train] augment=True (noise_std={cfg.aug_noise_std}, "
+            f"amp=[{cfg.aug_amp_min},{cfg.aug_amp_max}], time_warp={cfg.aug_time_warp})"
+        )
+    if use_meta:
+        print(f"[train] metadata head enabled (metadata_dim={train_ds.metadata_dim})")
 
-    model = _build_model(cfg, n_classes)
+    model = _build_model(cfg, n_classes, metadata_dim=train_ds.metadata_dim if use_meta else 0)
     n_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"Model parameters: {n_params:,}")
 

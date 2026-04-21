@@ -30,6 +30,8 @@ class CNNClassifier(nn.Module):
         channels: list[int] | None = None,
         kernel_size: int = 5,
         dropout: float = 0.3,
+        use_metadata_head: bool = False,
+        metadata_dim: int = 0,
     ) -> None:
         super().__init__()
         if channels is None:
@@ -48,26 +50,33 @@ class CNNClassifier(nn.Module):
 
         self.features = nn.Sequential(*layers)
         self.pool = nn.AdaptiveAvgPool1d(1)
+
+        self.use_metadata_head = use_metadata_head and metadata_dim > 0
+        head_in = c_in + (metadata_dim if self.use_metadata_head else 0)
+
         self.head = nn.Sequential(
             nn.Flatten(),
             nn.Dropout(dropout),
-            nn.Linear(c_in, c_in // 2),
+            nn.Linear(head_in, max(head_in // 2, 32)),
             nn.ReLU(inplace=True),
-            nn.Linear(c_in // 2, num_classes),
+            nn.Linear(max(head_in // 2, 32), num_classes),
         )
 
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        # x: (B, 1, T)
+    def forward(self, x: torch.Tensor, meta: torch.Tensor | None = None) -> torch.Tensor:
         x = self.features(x)
-        x = self.pool(x)          # (B, C, 1)
+        x = self.pool(x).flatten(1)          # (B, C)
+        if self.use_metadata_head and meta is not None:
+            x = torch.cat([x, meta], dim=1)
         return self.head(x)
 
 
-def build_cnn(num_classes: int, cfg) -> CNNClassifier:
+def build_cnn(num_classes: int, cfg, metadata_dim: int = 0) -> CNNClassifier:
     """Instantiate a CNNClassifier from a TrainConfig."""
     return CNNClassifier(
         num_classes=num_classes,
         channels=cfg.cnn_channels,
         kernel_size=cfg.cnn_kernel_size,
         dropout=cfg.cnn_dropout,
+        use_metadata_head=getattr(cfg, "use_metadata_head", False),
+        metadata_dim=metadata_dim,
     )

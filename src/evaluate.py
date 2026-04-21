@@ -22,16 +22,22 @@ from src.evaluation.metrics import save_eval_results
 from src.models.cnn_bilstm import build_cnn_bilstm
 from src.models.cnn_classifier import build_cnn
 from src.models.gru_classifier import build_gru
+from src.models.multiscale_cnn import build_multiscale_cnn
 from src.training.config import TrainConfig
 
 
-def _build_model(cfg: TrainConfig, num_classes: int) -> torch.nn.Module:
+MODELS_SUPPORTING_METADATA = {"cnn", "multiscale_cnn"}
+
+
+def _build_model(cfg: TrainConfig, num_classes: int, metadata_dim: int = 0) -> torch.nn.Module:
     if cfg.model == "gru":
         return build_gru(num_classes, cfg)
     elif cfg.model == "cnn":
-        return build_cnn(num_classes, cfg)
+        return build_cnn(num_classes, cfg, metadata_dim=metadata_dim)
     elif cfg.model == "cnn_bilstm":
         return build_cnn_bilstm(num_classes, cfg)
+    elif cfg.model == "multiscale_cnn":
+        return build_multiscale_cnn(num_classes, cfg, metadata_dim=metadata_dim)
     else:
         raise ValueError(f"Unknown model: {cfg.model!r}")
 
@@ -66,10 +72,16 @@ def evaluate_split(
 ) -> tuple[np.ndarray, np.ndarray]:
     model.eval()
     all_labels, all_preds = [], []
-    for x, y in loader:
+    for batch in loader:
+        if len(batch) == 3:
+            x, meta, y = batch
+            meta = meta.to(device, non_blocking=True)
+        else:
+            x, y = batch
+            meta = None
         x = x.to(device, non_blocking=True)
-        preds = model(x).argmax(dim=1).cpu().numpy()
-        all_preds.append(preds)
+        logits = model(x, meta) if meta is not None else model(x)
+        all_preds.append(logits.argmax(dim=1).cpu().numpy())
         all_labels.append(y.numpy())
     return np.concatenate(all_labels), np.concatenate(all_preds)
 
@@ -93,15 +105,22 @@ def main() -> None:
     label_names = [k for k, _ in sorted(label_map.items(), key=lambda x: x[1])]
     n_classes = len(label_names)
 
-    model = _build_model(cfg, n_classes)
+    use_meta = bool(cfg.use_metadata_head) and cfg.model in MODELS_SUPPORTING_METADATA
+
+    ds = WaterEventDataset(
+        args.split,
+        Path(cfg.manifest_path),
+        Path(cfg.sequences_dir),
+        return_metadata=use_meta,
+    )
+    loader = DataLoader(ds, batch_size=cfg.batch_size, shuffle=False, num_workers=cfg.num_workers)
+
+    model = _build_model(cfg, n_classes, metadata_dim=ds.metadata_dim if use_meta else 0)
     # Always deserialize on CPU first so evaluation works on login nodes too.
     ckpt = torch.load(args.checkpoint, map_location="cpu")
     state = ckpt["model_state_dict"] if isinstance(ckpt, dict) and "model_state_dict" in ckpt else ckpt
     model.load_state_dict(state)
     model.to(device)
-
-    ds = WaterEventDataset(args.split, Path(cfg.manifest_path), Path(cfg.sequences_dir))
-    loader = DataLoader(ds, batch_size=cfg.batch_size, shuffle=False, num_workers=cfg.num_workers)
 
     print(f"Evaluating {args.split} split ({len(ds):,} events) on {device}...")
     y_true, y_pred = evaluate_split(model, loader, device)

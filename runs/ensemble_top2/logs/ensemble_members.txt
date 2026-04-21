@@ -1,0 +1,2 @@
+multiscale_cnn_balanced
+cnn_baseline

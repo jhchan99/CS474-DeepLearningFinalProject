@@ -45,6 +45,13 @@ class WaterEventDataset(Dataset):
         split: Split,
         manifest_path: Path | None = None,
         sequences_dir: Path | None = None,
+        *,
+        augment: bool = False,
+        aug_noise_std: float = 0.0,
+        aug_amp_min: float = 1.0,
+        aug_amp_max: float = 1.0,
+        aug_time_warp: float = 0.0,
+        return_metadata: bool = False,
     ) -> None:
         manifest_path = manifest_path or (PROCESSED_WATER_ROOT / "events_manifest.csv")
         self._sequences_dir = sequences_dir or SEQUENCES_DIR
@@ -61,6 +68,30 @@ class WaterEventDataset(Dataset):
         self._label_idxs: np.ndarray = df["label_idx"].to_numpy(dtype=np.int64)
         self._shards: list[str] = df["shard"].tolist()
 
+        # Augmentation settings (only applied when augment=True, typically on train)
+        self._augment = augment
+        self._noise_std = float(aug_noise_std)
+        self._amp_min = float(aug_amp_min)
+        self._amp_max = float(aug_amp_max)
+        self._time_warp = float(aug_time_warp)
+
+        # Metadata features
+        self._return_metadata = return_metadata
+        if return_metadata:
+            orig_len = df["orig_len"].to_numpy(dtype=np.float32)
+            hours = pd.to_datetime(df["start_time"], errors="coerce").dt.hour.fillna(0).to_numpy(dtype=np.float32)
+            meta = np.stack(
+                [
+                    np.log1p(orig_len),
+                    np.sin(2 * np.pi * hours / 24.0),
+                    np.cos(2 * np.pi * hours / 24.0),
+                ],
+                axis=1,
+            ).astype(np.float32)
+            self._metadata: np.ndarray | None = meta
+        else:
+            self._metadata = None
+
         # Build a compact position index: per shard, map event_id -> row index
         # populated lazily when the shard is first opened.
         self._shard_data: dict[str, dict[str, int]] = {}  # shard_name -> {event_id -> position}
@@ -69,6 +100,10 @@ class WaterEventDataset(Dataset):
         # Precompute unique labels and counts for sampler convenience
         self.label_idxs: np.ndarray = self._label_idxs
         self.num_classes: int = int(df["label_idx"].max()) + 1
+
+    @property
+    def metadata_dim(self) -> int:
+        return 0 if self._metadata is None else int(self._metadata.shape[1])
 
     def __len__(self) -> int:
         return len(self._event_ids)
@@ -81,7 +116,41 @@ class WaterEventDataset(Dataset):
         self._shard_data[shard_name] = id_to_pos
         self._shard_arrays[shard_name] = data["flow_128"]  # (n, 128) float32
 
-    def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor]:
+    def _apply_augment(self, flow: np.ndarray) -> np.ndarray:
+        """Stochastic augmentations on a single 1D (T,) trace. Returns float32."""
+        out = flow.astype(np.float32, copy=True)
+        T = out.shape[0]
+
+        # Time warp: resample to random length then crop/pad back to T
+        if self._time_warp > 0.0:
+            w = float(np.random.uniform(1.0 - self._time_warp, 1.0 + self._time_warp))
+            new_len = max(2, int(round(T * w)))
+            xp = np.linspace(0, 1, T, dtype=np.float32)
+            fp = out
+            xq = np.linspace(0, 1, new_len, dtype=np.float32)
+            warped = np.interp(xq, xp, fp).astype(np.float32)
+            if new_len >= T:
+                start = (new_len - T) // 2
+                out = warped[start:start + T]
+            else:
+                pad_l = (T - new_len) // 2
+                pad_r = T - new_len - pad_l
+                out = np.pad(warped, (pad_l, pad_r), mode="edge")
+
+        # Amplitude scaling
+        if self._amp_min < self._amp_max:
+            scale = float(np.random.uniform(self._amp_min, self._amp_max))
+            out = out * scale
+
+        # Additive Gaussian noise
+        if self._noise_std > 0.0:
+            noise = np.random.normal(0.0, self._noise_std, size=out.shape).astype(np.float32)
+            out = out + noise
+            out = np.clip(out, a_min=0.0, a_max=None)
+
+        return out
+
+    def __getitem__(self, idx: int):
         shard_name = self._shards[idx]
         event_id = self._event_ids[idx]
         label = self._label_idxs[idx]
@@ -92,8 +161,15 @@ class WaterEventDataset(Dataset):
         pos = self._shard_data[shard_name][event_id]
         flow = self._shard_arrays[shard_name][pos]  # (128,) float32
 
-        x = torch.from_numpy(flow).float().unsqueeze(0)  # (1, 128)
+        if self._augment:
+            flow = self._apply_augment(flow)
+
+        x = torch.from_numpy(np.ascontiguousarray(flow)).float().unsqueeze(0)  # (1, 128)
         y = torch.tensor(label, dtype=torch.long)
+
+        if self._metadata is not None:
+            meta = torch.from_numpy(self._metadata[idx]).float()
+            return x, meta, y
         return x, y
 
 

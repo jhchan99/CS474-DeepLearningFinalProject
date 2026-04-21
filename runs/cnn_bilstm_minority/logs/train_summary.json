@@ -1,0 +1,7 @@
+{
+  "run_name": "cnn_bilstm_minority",
+  "model": "cnn_bilstm",
+  "best_val_f1": 0.37821424002120213,
+  "best_epoch": 5,
+  "n_params": 638149
+}

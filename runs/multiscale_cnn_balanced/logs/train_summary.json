@@ -1,0 +1,7 @@
+{
+  "run_name": "multiscale_cnn_balanced",
+  "model": "multiscale_cnn",
+  "best_val_f1": 0.7471813537030695,
+  "best_epoch": 32,
+  "n_params": 132261
+}

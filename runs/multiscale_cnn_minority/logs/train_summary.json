@@ -1,0 +1,7 @@
+{
+  "run_name": "multiscale_cnn_minority",
+  "model": "multiscale_cnn",
+  "best_val_f1": 0.39284627232237845,
+  "best_epoch": 24,
+  "n_params": 132670
+}

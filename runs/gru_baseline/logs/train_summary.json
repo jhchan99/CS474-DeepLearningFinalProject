@@ -1,0 +1,7 @@
+{
+  "run_name": "gru_baseline",
+  "model": "gru",
+  "best_val_f1": 0.7088479523498484,
+  "best_epoch": 5,
+  "n_params": 157957
+}

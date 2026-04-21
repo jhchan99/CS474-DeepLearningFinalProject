@@ -1,0 +1,7 @@
+{
+  "run_name": "gru_balanced",
+  "model": "gru",
+  "best_val_f1": 0.7245441496001228,
+  "best_epoch": 15,
+  "n_params": 430597
+}

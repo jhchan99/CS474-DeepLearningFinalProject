@@ -1,0 +1,68 @@
+=== Starting training: CONFIG=configs/train_multiscale_cnn_balanced.yaml ===
+Job: 11549135  Node: m9g-1-4  Started: 2026-04-21T08:56:42-06:00
+Working directory: /home/jamcha99/DeepLearningFinalProject
+Python: /home/jamcha99/groups/grp_oitcapstone_cs/.cache/envs/dl-water/bin/python
+CUDA available: True
+  GPU 0: Tesla P100-PCIE-16GB
+Run: multiscale_cnn_balanced  Model: multiscale_cnn  Classes: 5  Device: auto
+Train size: 656,734  Val size: 153,238
+[train] augment=True (noise_std=0.01, amp=[0.9,1.1], time_warp=0.0)
+Model parameters: 132,261
+[train] tensorboard is not installed; continuing without TensorBoard logging
+[train] loss: cross-entropy (class_weights=True)
+Epoch 001/60  loss 0.9169/0.1744  F1 0.3997/0.4879  (25.7s)
+Epoch 002/60  loss 0.8065/0.1192  F1 0.4567/0.5950  (25.4s)
+Epoch 003/60  loss 0.7729/0.1522  F1 0.4631/0.6122  (25.3s)
+Epoch 004/60  loss 0.7657/0.1611  F1 0.4650/0.5847  (25.3s)
+Epoch 005/60  loss 0.7361/0.4746  F1 0.4749/0.6096  (26.6s)
+Epoch 006/60  loss 0.7316/0.1064  F1 0.4880/0.6617  (25.6s)
+Epoch 007/60  loss 0.7209/0.0838  F1 0.4836/0.6408  (25.6s)
+Epoch 008/60  loss 0.7104/0.1477  F1 0.4890/0.6011  (25.6s)
+Epoch 009/60  loss 0.7011/0.1274  F1 0.5081/0.5692  (25.5s)
+Epoch 010/60  loss 0.6959/0.0940  F1 0.4984/0.6592  (25.7s)
+Epoch 011/60  loss 0.6831/0.1057  F1 0.5128/0.6360  (25.6s)
+Epoch 012/60  loss 0.6722/0.0895  F1 0.5151/0.6512  (25.7s)
+Epoch 013/60  loss 0.6666/0.0946  F1 0.5297/0.6790  (25.6s)
+Epoch 014/60  loss 0.6698/0.0834  F1 0.5356/0.6794  (26.1s)
+Epoch 015/60  loss 0.6478/0.1655  F1 0.5421/0.6437  (25.9s)
+Epoch 016/60  loss 0.6290/0.1415  F1 0.5416/0.6256  (25.9s)
+Epoch 017/60  loss 0.6413/0.5942  F1 0.5526/0.6402  (25.9s)
+Epoch 018/60  loss 0.6406/0.0803  F1 0.5521/0.6588  (26.7s)
+Epoch 019/60  loss 0.6290/0.1117  F1 0.5598/0.6493  (25.5s)
+Epoch 020/60  loss 0.6168/0.0726  F1 0.5661/0.7049  (25.3s)
+Epoch 021/60  loss 0.6097/0.0917  F1 0.5766/0.6588  (25.3s)
+Epoch 022/60  loss 0.6098/0.1060  F1 0.5751/0.6536  (25.3s)
+Epoch 023/60  loss 0.6041/0.0970  F1 0.5779/0.6521  (25.2s)
+Epoch 024/60  loss 0.5985/0.1114  F1 0.5837/0.6421  (25.4s)
+Epoch 025/60  loss 0.5901/0.0919  F1 0.5886/0.6729  (25.3s)
+Epoch 026/60  loss 0.6081/0.0871  F1 0.5782/0.7139  (25.2s)
+Epoch 027/60  loss 0.5826/0.1001  F1 0.5857/0.6767  (25.3s)
+Epoch 028/60  loss 0.5678/0.1003  F1 0.5955/0.6761  (25.6s)
+Epoch 029/60  loss 0.5818/0.1070  F1 0.5925/0.6557  (25.5s)
+Epoch 030/60  loss 0.5591/0.1093  F1 0.5932/0.6781  (25.8s)
+Epoch 031/60  loss 0.5589/0.1037  F1 0.6157/0.6574  (25.6s)
+Epoch 032/60  loss 0.5668/0.0732  F1 0.6058/0.7472  (25.5s)
+Epoch 033/60  loss 0.5603/0.1199  F1 0.6149/0.6385  (25.6s)
+Epoch 034/60  loss 0.5596/0.1251  F1 0.6096/0.6615  (25.6s)
+Epoch 035/60  loss 0.5428/0.0744  F1 0.6102/0.7418  (25.7s)
+Epoch 036/60  loss 0.5493/0.1239  F1 0.6190/0.6587  (25.8s)
+Epoch 037/60  loss 0.5385/0.0883  F1 0.6168/0.7198  (25.8s)
+Epoch 038/60  loss 0.5422/0.1764  F1 0.6272/0.6206  (25.9s)
+Epoch 039/60  loss 0.5190/0.1152  F1 0.6293/0.6739  (25.9s)
+Epoch 040/60  loss 0.5335/0.1084  F1 0.6273/0.6702  (25.9s)
+Epoch 041/60  loss 0.5192/0.0973  F1 0.6390/0.7428  (25.9s)
+Epoch 042/60  loss 0.5208/0.1527  F1 0.6371/0.6487  (25.4s)
+Epoch 043/60  loss 0.5167/0.0983  F1 0.6370/0.6840  (25.2s)
+Epoch 044/60  loss 0.5189/0.1012  F1 0.6340/0.7024  (25.3s)
+Epoch 045/60  loss 0.5062/0.0944  F1 0.6423/0.7232  (25.2s)
+Epoch 046/60  loss 0.4999/0.1215  F1 0.6447/0.6719  (25.2s)
+Epoch 047/60  loss 0.5029/0.0879  F1 0.6563/0.7264  (26.4s)
+Epoch 048/60  loss 0.4941/0.0862  F1 0.6440/0.7197  (25.5s)
+Epoch 049/60  loss 0.5064/0.1206  F1 0.6582/0.6908  (25.4s)
+Epoch 050/60  loss 0.4893/0.0908  F1 0.6642/0.7190  (25.6s)
+Epoch 051/60  loss 0.4992/0.1271  F1 0.6607/0.6652  (26.2s)
+Epoch 052/60  loss 0.4879/0.1126  F1 0.6595/0.7018  (26.2s)
+Early stopping at epoch 52 (no improvement for 20 epochs).
+Best val macro-F1: 0.7472 at epoch 32
+Summary saved to /home/jamcha99/DeepLearningFinalProject/runs/multiscale_cnn_balanced/logs/train_summary.json
+=== Training complete: 2026-04-21T09:19:31-06:00 ===

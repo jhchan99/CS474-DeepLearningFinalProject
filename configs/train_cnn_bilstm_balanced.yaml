@@ -1,0 +1,40 @@
+# CNN-BiLSTM — balanced (macro-first) variant
+run_name: cnn_bilstm_balanced
+model: cnn_bilstm
+
+manifest_path: processed/water_events/events_manifest.csv
+sequences_dir: processed/water_events/sequences
+label_map_path: processed/water_events/label_encoding_benchmark.json
+checkpoint_dir: runs/cnn_bilstm_balanced/checkpoints
+log_dir: runs/cnn_bilstm_balanced/logs
+
+batch_size: 256
+num_workers: 4
+pin_memory: true
+use_weighted_sampler: false
+
+use_class_weights: true
+loss_type: ce
+
+augment: true
+aug_noise_std: 0.01
+aug_amp_min: 0.9
+aug_amp_max: 1.1
+aug_time_warp: 0.0
+
+lr: 0.0003
+weight_decay: 0.0001
+scheduler: cosine
+cosine_t_max: 60
+
+epochs: 60
+early_stop_patience: 20
+seed: 42
+log_every_n_steps: 50
+save_best_only: true
+
+cnn_bilstm_channels: [32, 64]
+cnn_bilstm_kernel: 5
+cnn_bilstm_hidden: 128
+cnn_bilstm_layers: 2
+cnn_bilstm_dropout: 0.3

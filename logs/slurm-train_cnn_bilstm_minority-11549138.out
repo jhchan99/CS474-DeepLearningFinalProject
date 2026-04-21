@@ -1,0 +1,41 @@
+=== Starting training: CONFIG=configs/train_cnn_bilstm_minority.yaml ===
+Job: 11549138  Node: m9g-1-5  Started: 2026-04-21T08:56:43-06:00
+Working directory: /home/jamcha99/DeepLearningFinalProject
+Python: /home/jamcha99/groups/grp_oitcapstone_cs/.cache/envs/dl-water/bin/python
+CUDA available: True
+  GPU 0: Tesla P100-PCIE-16GB
+Run: cnn_bilstm_minority  Model: cnn_bilstm  Classes: 5  Device: auto
+Train size: 656,734  Val size: 153,238
+[train] augment=True (noise_std=0.03, amp=[0.7,1.3], time_warp=0.1)
+Model parameters: 638,149
+[train] tensorboard is not installed; continuing without TensorBoard logging
+[train] loss: focal (gamma=2.0, class_weights=True)
+Epoch 001/60  loss 18.3945/0.8797  F1 0.3503/0.1138  (52.8s)
+Epoch 002/60  loss 11.5043/0.7410  F1 0.4785/0.1705  (50.6s)
+Epoch 003/60  loss 7.9085/1.0597  F1 0.5311/0.1883  (50.7s)
+Epoch 004/60  loss 6.0988/0.9370  F1 0.5789/0.1794  (51.2s)
+Epoch 005/60  loss 4.8451/1.0200  F1 0.7009/0.3782  (51.3s)
+Epoch 006/60  loss 4.0199/1.1145  F1 0.7995/0.3523  (51.2s)
+Epoch 007/60  loss 3.4761/1.0353  F1 0.8366/0.3651  (51.3s)
+Epoch 008/60  loss 3.0302/1.0037  F1 0.8604/0.3698  (51.1s)
+Epoch 009/60  loss 2.7421/1.1566  F1 0.8724/0.3742  (51.3s)
+Epoch 010/60  loss 2.5392/1.2952  F1 0.8827/0.3570  (52.9s)
+Epoch 011/60  loss 2.2723/1.2626  F1 0.8910/0.3580  (51.4s)
+Epoch 012/60  loss 2.0967/1.3165  F1 0.8983/0.3610  (51.2s)
+Epoch 013/60  loss 1.9644/1.4666  F1 0.9030/0.3545  (51.1s)
+Epoch 014/60  loss 1.8906/1.3222  F1 0.9066/0.3545  (51.2s)
+Epoch 015/60  loss 1.8495/1.4224  F1 0.9083/0.3569  (51.5s)
+Epoch 016/60  loss 1.7363/1.3985  F1 0.9139/0.3620  (51.7s)
+Epoch 017/60  loss 1.6494/1.5839  F1 0.9176/0.3551  (51.8s)
+Epoch 018/60  loss 1.5842/1.6371  F1 0.9185/0.3587  (51.6s)
+Epoch 019/60  loss 1.5013/1.6708  F1 0.9224/0.3590  (51.6s)
+Epoch 020/60  loss 1.4749/1.5006  F1 0.9244/0.3574  (50.8s)
+Epoch 021/60  loss 1.4182/1.5597  F1 0.9268/0.3601  (51.2s)
+Epoch 022/60  loss 1.3953/1.5117  F1 0.9299/0.3600  (51.1s)
+Epoch 023/60  loss 1.3121/1.4725  F1 0.9309/0.3593  (50.9s)
+Epoch 024/60  loss 1.3038/1.6710  F1 0.9330/0.3615  (50.9s)
+Epoch 025/60  loss 1.3097/1.6887  F1 0.9360/0.3642  (50.9s)
+Early stopping at epoch 25 (no improvement for 20 epochs).
+Best val macro-F1: 0.3782 at epoch 5
+Summary saved to /home/jamcha99/DeepLearningFinalProject/runs/cnn_bilstm_minority/logs/train_summary.json
+=== Training complete: 2026-04-21T09:19:04-06:00 ===

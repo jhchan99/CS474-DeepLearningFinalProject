@@ -1,0 +1,7 @@
+{
+  "run_name": "gru_minority",
+  "model": "gru",
+  "best_val_f1": 0.41601097905360385,
+  "best_epoch": 8,
+  "n_params": 430597
+}

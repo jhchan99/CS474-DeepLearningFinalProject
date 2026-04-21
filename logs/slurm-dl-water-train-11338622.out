@@ -1,0 +1,29 @@
+=== Starting training: CONFIG=configs/train_gru.yaml ===
+Job: 11338622  Node: m9g-1-2  Started: 2026-04-08T18:30:42-06:00
+Working directory: /home/jamcha99/DeepLearningFinalProject
+Python: /home/jamcha99/groups/grp_oitcapstone_cs/.cache/envs/dl-water/bin/python
+CUDA available: True
+  GPU 0: Tesla P100-PCIE-16GB
+Run: gru_baseline  Model: gru  Classes: 5  Device: auto
+Train size: 656,734  Val size: 153,238
+Model parameters: 157,957
+[train] tensorboard is not installed; continuing without TensorBoard logging
+Epoch 001/50  loss 0.8558/0.0891  F1 0.3954/0.5657  (33.7s)
+Epoch 002/50  loss 0.7137/0.0950  F1 0.4681/0.5820  (34.0s)
+Epoch 003/50  loss 0.6707/0.0757  F1 0.4963/0.6903  (32.8s)
+Epoch 004/50  loss 0.6381/0.0827  F1 0.5009/0.7037  (32.1s)
+Epoch 005/50  loss 0.6349/0.0727  F1 0.5301/0.7088  (32.1s)
+Epoch 006/50  loss 0.6217/0.1055  F1 0.5478/0.6687  (33.0s)
+Epoch 007/50  loss 0.6133/0.0840  F1 0.5505/0.6467  (32.3s)
+Epoch 008/50  loss 0.5987/0.0911  F1 0.5614/0.6570  (32.3s)
+Epoch 009/50  loss 0.5957/0.0978  F1 0.5607/0.6934  (32.3s)
+Epoch 010/50  loss 0.5922/0.0942  F1 0.5682/0.6617  (32.4s)
+Epoch 011/50  loss 0.5691/0.0999  F1 0.5635/0.7008  (32.5s)
+Epoch 012/50  loss 0.5617/0.0939  F1 0.5731/0.7024  (32.4s)
+Epoch 013/50  loss 0.5701/0.0853  F1 0.5721/0.6523  (32.3s)
+Epoch 014/50  loss 0.5686/0.0717  F1 0.5856/0.6878  (32.5s)
+Epoch 015/50  loss 0.5416/0.0751  F1 0.5862/0.6611  (32.5s)
+Early stopping at epoch 15 (no improvement for 10 epochs).
+Best val macro-F1: 0.7088 at epoch 5
+Summary saved to /home/jamcha99/DeepLearningFinalProject/runs/gru_baseline/logs/train_summary.json
+=== Training complete: 2026-04-08T18:39:47-06:00 ===

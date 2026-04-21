@@ -44,6 +44,30 @@ class _NoOpSummaryWriter:
         return None
 
 
+class FocalLoss(nn.Module):
+    """Multi-class focal loss with optional class weights.
+
+    L = - alpha_c * (1 - p_c)^gamma * log(p_c)
+
+    ``alpha`` is the class-weight tensor (same semantics as CrossEntropy ``weight``).
+    """
+
+    def __init__(self, gamma: float = 2.0, weight: torch.Tensor | None = None) -> None:
+        super().__init__()
+        self.gamma = float(gamma)
+        self.register_buffer("weight", weight if weight is not None else None, persistent=False)
+
+    def forward(self, logits: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
+        logp = torch.log_softmax(logits, dim=-1)
+        logp_t = logp.gather(1, target.unsqueeze(1)).squeeze(1)
+        p_t = logp_t.exp()
+        loss = -((1.0 - p_t) ** self.gamma) * logp_t
+        if self.weight is not None:
+            w = self.weight.to(logits.device)[target]
+            loss = loss * w
+        return loss.mean()
+
+
 class EarlyStopping:
     def __init__(self, patience: int, mode: str = "max") -> None:
         self.patience = patience
@@ -105,11 +129,20 @@ def _epoch_pass(
 
     ctx = torch.enable_grad() if train else torch.no_grad()
     with ctx:
-        for step, (x, y) in enumerate(loader):
+        for step, batch in enumerate(loader):
+            if len(batch) == 3:
+                x, meta, y = batch
+                meta = meta.to(device, non_blocking=True)
+            else:
+                x, y = batch
+                meta = None
             x = x.to(device, non_blocking=True)
             y = y.to(device, non_blocking=True)
 
-            logits = model(x)
+            if meta is not None:
+                logits = model(x, meta)
+            else:
+                logits = model(x)
             loss = criterion(logits, y)
 
             if train:
@@ -165,7 +198,12 @@ def train(
         cw = class_weights(train_ds).to(device)
     else:
         cw = None
-    criterion = nn.CrossEntropyLoss(weight=cw)
+    if cfg.loss_type == "focal":
+        criterion = FocalLoss(gamma=cfg.focal_gamma, weight=cw)
+        print(f"[train] loss: focal (gamma={cfg.focal_gamma}, class_weights={cw is not None})")
+    else:
+        criterion = nn.CrossEntropyLoss(weight=cw)
+        print(f"[train] loss: cross-entropy (class_weights={cw is not None})")
 
     # DataLoaders
     from src.data.sequence_dataset import make_weighted_sampler

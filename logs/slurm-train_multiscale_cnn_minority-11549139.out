@@ -1,0 +1,61 @@
+=== Starting training: CONFIG=configs/train_multiscale_cnn_minority.yaml ===
+Job: 11549139  Node: m9g-1-6  Started: 2026-04-21T08:56:44-06:00
+Working directory: /home/jamcha99/DeepLearningFinalProject
+Python: /home/jamcha99/groups/grp_oitcapstone_cs/.cache/envs/dl-water/bin/python
+CUDA available: True
+  GPU 0: Tesla P100-PCIE-16GB
+Run: multiscale_cnn_minority  Model: multiscale_cnn  Classes: 5  Device: auto
+Train size: 656,734  Val size: 153,238
+[train] augment=True (noise_std=0.03, amp=[0.7,1.3], time_warp=0.1)
+[train] metadata head enabled (metadata_dim=3)
+Model parameters: 132,670
+[train] tensorboard is not installed; continuing without TensorBoard logging
+[train] loss: focal (gamma=2.0, class_weights=True)
+Epoch 001/60  loss 17.4013/1.0621  F1 0.3679/0.1799  (31.0s)
+Epoch 002/60  loss 12.9538/0.9208  F1 0.4564/0.1754  (28.0s)
+Epoch 003/60  loss 10.6300/0.9394  F1 0.4932/0.2072  (28.5s)
+Epoch 004/60  loss 8.9712/0.6920  F1 0.5257/0.2484  (27.8s)
+Epoch 005/60  loss 7.8006/0.6467  F1 0.5608/0.2989  (27.9s)
+Epoch 006/60  loss 6.9409/0.7800  F1 0.5878/0.2259  (28.5s)
+Epoch 007/60  loss 6.2901/0.8318  F1 0.6224/0.3566  (28.8s)
+Epoch 008/60  loss 5.7863/0.9910  F1 0.6531/0.3510  (28.5s)
+Epoch 009/60  loss 5.3577/0.8264  F1 0.7082/0.3639  (29.0s)
+Epoch 010/60  loss 4.9597/1.2844  F1 0.7524/0.3832  (28.2s)
+Epoch 011/60  loss 4.7038/0.7921  F1 0.7874/0.3688  (28.3s)
+Epoch 012/60  loss 4.3534/1.0975  F1 0.8077/0.3708  (28.4s)
+Epoch 013/60  loss 4.2078/1.1229  F1 0.8156/0.3879  (28.5s)
+Epoch 014/60  loss 3.9936/1.7635  F1 0.8282/0.3726  (28.3s)
+Epoch 015/60  loss 3.8213/1.0482  F1 0.8347/0.3677  (28.9s)
+Epoch 016/60  loss 3.6712/1.1655  F1 0.8408/0.3857  (28.6s)
+Epoch 017/60  loss 3.4673/1.3278  F1 0.8452/0.3728  (28.8s)
+Epoch 018/60  loss 3.3303/1.4039  F1 0.8507/0.3855  (28.8s)
+Epoch 019/60  loss 3.1997/1.4071  F1 0.8533/0.3847  (29.7s)
+Epoch 020/60  loss 3.0925/1.2485  F1 0.8590/0.3865  (28.5s)
+Epoch 021/60  loss 2.9695/1.1304  F1 0.8622/0.3613  (27.9s)
+Epoch 022/60  loss 2.8851/1.6926  F1 0.8655/0.3867  (28.3s)
+Epoch 023/60  loss 2.7395/1.2379  F1 0.8682/0.3781  (28.2s)
+Epoch 024/60  loss 2.6778/1.3206  F1 0.8717/0.3928  (28.5s)
+Epoch 025/60  loss 2.5836/1.2557  F1 0.8738/0.3593  (28.4s)
+Epoch 026/60  loss 2.5013/1.7292  F1 0.8762/0.3802  (28.1s)
+Epoch 027/60  loss 2.4060/1.7483  F1 0.8780/0.3716  (28.4s)
+Epoch 028/60  loss 2.3924/1.8893  F1 0.8805/0.3774  (28.4s)
+Epoch 029/60  loss 2.2646/1.6360  F1 0.8826/0.3616  (28.2s)
+Epoch 030/60  loss 2.2467/1.8962  F1 0.8835/0.3714  (28.5s)
+Epoch 031/60  loss 2.1339/2.1757  F1 0.8871/0.3722  (28.0s)
+Epoch 032/60  loss 2.0915/1.5661  F1 0.8890/0.3801  (28.2s)
+Epoch 033/60  loss 2.0289/1.7358  F1 0.8901/0.3657  (28.8s)
+Epoch 034/60  loss 1.9804/2.3451  F1 0.8915/0.3662  (28.5s)
+Epoch 035/60  loss 1.9516/2.0238  F1 0.8930/0.3719  (28.2s)
+Epoch 036/60  loss 1.9120/1.7388  F1 0.8941/0.3648  (28.6s)
+Epoch 037/60  loss 1.8393/2.2272  F1 0.8953/0.3724  (29.4s)
+Epoch 038/60  loss 1.8034/2.0312  F1 0.8968/0.3716  (28.6s)
+Epoch 039/60  loss 1.7643/2.2044  F1 0.8979/0.3694  (28.1s)
+Epoch 040/60  loss 1.6950/2.2259  F1 0.8996/0.3602  (29.6s)
+Epoch 041/60  loss 1.7018/2.3108  F1 0.9007/0.3694  (30.2s)
+Epoch 042/60  loss 1.6550/2.2891  F1 0.9012/0.3704  (29.0s)
+Epoch 043/60  loss 1.6409/2.3015  F1 0.9016/0.3693  (29.1s)
+Epoch 044/60  loss 1.6256/2.5311  F1 0.9030/0.3706  (29.3s)
+Early stopping at epoch 44 (no improvement for 20 epochs).
+Best val macro-F1: 0.3928 at epoch 24
+Summary saved to /home/jamcha99/DeepLearningFinalProject/runs/multiscale_cnn_minority/logs/train_summary.json
+=== Training complete: 2026-04-21T09:18:44-06:00 ===

@@ -10,8 +10,12 @@ __pycache__/
 .idea/
 .vscode/
 
-runs/
-logs/
+runs/**/checkpoints/
+*.pt
+*.pth
+*.ckpt
+runs/**/events.out.tfevents*
+
 reports/
 *.log
 

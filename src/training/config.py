@@ -35,7 +35,7 @@ class TrainConfig:
     use_weighted_sampler: bool = False  # alternative to loss weighting
 
     # ── optimiser ────────────────────────────────────────────────────────────
-    lr: float = 1e-3
+    lr: float = 3e-4 
     weight_decay: float = 1e-4
     scheduler: str = "cosine"   # cosine | plateau | none
     # cosine params
@@ -46,6 +46,18 @@ class TrainConfig:
 
     # ── loss ─────────────────────────────────────────────────────────────────
     use_class_weights: bool = True  # inverse-frequency weights in cross-entropy
+    loss_type: str = "ce"           # "ce" | "focal"
+    focal_gamma: float = 2.0
+
+    # ── augmentation (train split only) ──────────────────────────────────────
+    augment: bool = False
+    aug_noise_std: float = 0.0
+    aug_amp_min: float = 1.0
+    aug_amp_max: float = 1.0
+    aug_time_warp: float = 0.0      # 0 = off; 0.1 = +/-10% random time-stretch
+
+    # ── metadata head (scalar features concatenated before the FC head) ──────
+    use_metadata_head: bool = False
 
     # ── training loop ─────────────────────────────────────────────────────────
     epochs: int = 50
@@ -56,7 +68,7 @@ class TrainConfig:
     gru_hidden: int = 128
     gru_layers: int = 2
     gru_dropout: float = 0.3
-    gru_bidirectional: bool = False
+    gru_bidirectional: bool = True
 
     # ── CNN-specific ──────────────────────────────────────────────────────────
     cnn_channels: list[int] = field(default_factory=lambda: [32, 64, 128])
@@ -69,6 +81,12 @@ class TrainConfig:
     cnn_bilstm_hidden: int = 128
     cnn_bilstm_layers: int = 2
     cnn_bilstm_dropout: float = 0.3
+
+    # ── Multi-scale CNN-specific ──────────────────────────────────────────────
+    multiscale_cnn_stem_channels: int = 16
+    multiscale_cnn_kernels: list[int] = field(default_factory=lambda: [3, 7, 15, 31])
+    multiscale_cnn_channels: list[int] = field(default_factory=lambda: [96, 128, 160])
+    multiscale_cnn_dropout: float = 0.3
 
     # ── misc ─────────────────────────────────────────────────────────────────
     log_every_n_steps: int = 50

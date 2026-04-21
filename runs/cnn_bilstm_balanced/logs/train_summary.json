@@ -1,0 +1,7 @@
+{
+  "run_name": "cnn_bilstm_balanced",
+  "model": "cnn_bilstm",
+  "best_val_f1": 0.7458846049421394,
+  "best_epoch": 19,
+  "n_params": 638149
+}

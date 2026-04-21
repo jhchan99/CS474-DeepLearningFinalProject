@@ -1,0 +1,7 @@
+{
+  "run_name": "cnn_baseline",
+  "model": "cnn",
+  "best_val_f1": 0.7523683418781515,
+  "best_epoch": 35,
+  "n_params": 60613
+}
